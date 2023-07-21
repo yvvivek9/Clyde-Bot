@@ -1,0 +1,11 @@
+.training{
+    position: relative;
+    height: 90vh;
+    text-align: center;
+    background-color: white;
+}
+
+.training video{
+    height: 60vh;
+    margin: 10vh auto;
+}

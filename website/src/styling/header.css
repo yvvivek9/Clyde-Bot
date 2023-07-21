@@ -1,0 +1,30 @@
+.header{
+    position: relative;
+    height: 10vh;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    box-shadow: 0px 0px 30px rgb(0, 0, 0);
+}
+
+.header-logo{
+    position: relative;
+    height: 80%;
+    top: 10%;
+    left: 1%;
+}
+
+.header-admin-logo{
+    position: absolute;
+    height: 60%;
+    top: 20%;
+    right: 2%;
+    background-color: rgb(177, 177, 177);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all ease 0.1s;
+}
+
+.header-admin-logo:hover{
+    transform: scale(0.9);
+    box-shadow: 0px 0px 10px 1px white;
+}

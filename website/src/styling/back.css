@@ -1,0 +1,19 @@
+.back-button{
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    font-family: "Manrope";
+    font-size: 20px;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+}
+
+.back-button:hover{
+    transform: scale(1.1);
+}
+
+@font-face {
+    font-family: Manrope;
+    src: url("../fonts/Manrope-SemiBold.ttf");
+}

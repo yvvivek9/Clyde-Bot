@@ -1,0 +1,97 @@
+.selector-screen-bg{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(124, 124, 124, 0.8);
+}
+
+.selector-screen{
+    position: relative;
+    top: 5%;
+    width: 80%;
+    height: 90%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.selector-close{
+    position: absolute;
+    right: -25px;
+    top: -25px;
+    cursor: pointer;
+}
+
+.selector-images{
+    position: relative;
+    width: 100%;
+    height: 85%;
+    overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: "Poppins";
+    font-size: 2vh;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.selector-images div{
+    width: 23%;
+    height: fit-content;
+    padding: 5px;
+    cursor: default;
+    transition: all 0.2s;
+}
+
+.selector-images div img{
+    width: 90%;
+}
+
+.selector-images div div{
+    margin: 0 auto;
+}
+
+.selector-button-screen{
+    position: relative;
+    width: 100%;
+    height: 10%;
+    background-color: black;
+    border-radius: 0px 0px 20px 20px;
+}
+
+.selector-button-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(0, 0, 0, 0.5);
+    border-radius: 0px 0px 20px 20px;
+}
+
+.selector-button{
+    position: relative;
+    margin: auto;
+    top: 20%;
+    font-family: "Poppins";
+    font-weight: 600;
+    font-size: 2vh;
+    width: fit-content;
+    height: fit-content;
+    padding: 5px 10px;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.selector-button:hover{
+    background-color: white;
+    color: blue;
+}
+
+@font-face {
+    font-family: Poppins;
+    src: url("../fonts/Poppins-Regular.ttf");
+}
