@@ -4,7 +4,7 @@ import axios from "axios"
 import "../styling/admin.css"
 import Back from "./back"
 
-export default function Admin({ displayMsg }){
+export default function Admin({ displayMsg, setHome }){
     const [settings, setSettings] = useState({
         rcam: 0, fcam: 0, tspd: 0, ntresh: 0, ntreshh: 0, oat: 0, fcount: 0,
     })
@@ -152,7 +152,7 @@ export default function Admin({ displayMsg }){
                 </div>
                 <div className="submit-button" onClick={() => {changeMotion()}}>APPLY</div>
             </div>
-            <Back displayMsg={displayMsg} />
+            <Back displayMsg={displayMsg} setHome={setHome} />
         </div>
     )
 }

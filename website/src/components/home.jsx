@@ -3,14 +3,16 @@ import axios from "axios"
 
 import "../styling/home.css"
 
-export default function Home({ displayMsg }) {
+export default function Home({ displayMsg, setHome }) {
     const navigate = useNavigate()
 
     const handleClick = async (route) => {
         try {
             const res1 = await axios.post("/setMode", {mode: route})
-            if(res1.data.status === "Success")
+            if(res1.data.status === "Success"){
                 navigate(route)
+                setHome(false)
+            }
             else
                 displayMsg(res1.data.status)
         } catch (error) {

@@ -9,12 +9,14 @@ import Navigation from "./components/navigation"
 import Remote from "./components/remote"
 import Naming from "./components/naming"
 import Admin from "./components/admin"
+import Presentation from "./components/presentation";
 
 function App() {
 	const [msg, setMsg] = useState([""])
 	const [showMsg, setShowMsg] = useState(false)
 	const [login, setLogin] = useState({ user: "", pass: "" })
 	const [showLogin, setShowLogin] = useState(false)
+	const [home, setHome] = useState(true)
 
 	const navigate = useNavigate()
 	const validateLogin = () => {
@@ -43,14 +45,15 @@ function App() {
 
 	return (
 		<div className="App">
-			<Header showLogin={showLogin} setShowLogin={setShowLogin} />
+			<Header showLogin={showLogin} setShowLogin={setShowLogin} home={home} />
 			<Routes>
-				<Route exact index path="/" element={<Home displayMsg={displayMsg} />} />
-				<Route exact path="/training" element={<Training displayMsg={displayMsg} />} />
-				<Route exact path="/navigation" element={<Navigation displayMsg={displayMsg} />} />
-				<Route exact path="/remote" element={<Remote displayMsg={displayMsg} />} />
-				<Route exact path="/naming" element={<Naming displayMsg={displayMsg} />} />
-				<Route exact path="/admin" element={<Admin displayMsg={displayMsg} />} />
+				<Route exact index path="/" element={<Home displayMsg={displayMsg} setHome={setHome} />} />
+				<Route exact path="/training" element={<Training displayMsg={displayMsg} setHome={setHome} />} />
+				<Route exact path="/navigation" element={<Navigation displayMsg={displayMsg} setHome={setHome} />} />
+				<Route exact path="/remote" element={<Remote displayMsg={displayMsg} setHome={setHome} />} />
+				<Route exact path="/naming" element={<Naming displayMsg={displayMsg} setHome={setHome} />} />
+				<Route exact path="/admin" element={<Admin displayMsg={displayMsg} setHome={setHome} />} />
+				<Route exact path="/presentation" element={<Presentation displayMsg={displayMsg} setHome={setHome} />} />
 			</Routes>
 			{showLogin && <div className="login-box">
 				<div style={{ marginBottom: "5%", marginTop: "5%" }}><u>ADMIN  LOGIN</u><br /></div>

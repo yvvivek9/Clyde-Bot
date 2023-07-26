@@ -5,7 +5,7 @@ import "../styling/remote.css"
 import Back from "./back"
 import remotePng from "../photos/remote.png"
 
-export default function Remote({ displayMsg }){
+export default function Remote({ displayMsg, setHome }){
     const [speed, setSpeed] = useState({speed: 0, show: false})
 
     const getSpeed = async () => {
@@ -59,7 +59,7 @@ export default function Remote({ displayMsg }){
                 </div>
             </div>
             {speed.show && <div className="rem-start-button" onClick={() => {changeSpeed()}} >SET SPEED</div>}
-            <Back displayMsg={displayMsg} />
+            <Back displayMsg={displayMsg} setHome={setHome} />
         </div>
     )
 }

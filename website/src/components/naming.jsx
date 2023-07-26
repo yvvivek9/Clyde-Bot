@@ -4,7 +4,7 @@ import axios from "axios"
 import "../styling/naming.css"
 import Back from "./back"
 
-export default function Naming({ displayMsg }){
+export default function Naming({ displayMsg, setHome }){
     const [zones, setZones] = useState([])
 
     const getZones = async () => {
@@ -60,7 +60,7 @@ export default function Naming({ displayMsg }){
                 </div>
             </div>
             <div className="change-button" onClick={() => {handleSubmit()}} >SAVE</div>
-            <Back displayMsg={displayMsg} />
+            <Back displayMsg={displayMsg} setHome={setHome} />
         </div>
     )
 }

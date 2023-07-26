@@ -16,6 +16,20 @@ app.get("/", (req, res) => {
     res.sendFile(path.resolve("website", "build", "index.html"))
 })
 
+app.post("/battery", async (req, res) => {
+    try {
+        await workbook.xlsx.readFile("variables.xlsx")
+        const sheet = workbook.getWorksheet(3)
+        res.json({
+            value: sheet.getCell('B1').value,
+            charging: sheet.getCell('B2').value === "C" ? true : false,
+            error: false
+        })
+    } catch (error) {
+        res.json({error: true})
+    }
+})
+
 app.post("/getSettings", async (req, res) => {
     try {
         await workbook.xlsx.readFile("variables.xlsx")

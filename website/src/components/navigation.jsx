@@ -6,7 +6,7 @@ import Back from "./back"
 import Selector from "./selector";
 import arrow from "../photos/arrow.png"
 
-export default function Navigation({ displayMsg }) {
+export default function Navigation({ displayMsg, setHome }) {
     const [zones, setZones] = useState([])
     const [src, setSrc] = useState({ name: " -- SELECT SOURCE -- " })
     const [dest, setDest] = useState({ name: " -- SELECT DESTINATION -- " })
@@ -131,7 +131,7 @@ export default function Navigation({ displayMsg }) {
                     {nav === "resume" && <div className="nav-start-button" onClick={() => { startNavigation() }} >RESUME</div>}
                 </div>
             }
-            <Back displayMsg={displayMsg} />
+            <Back displayMsg={displayMsg} setHome={setHome} />
             {showSrc && <Selector zones={zones} text={"SELECT SOURCE"} selZone={src} setZone={setSrc} setView={setShowSrc} displayMsg={displayMsg} />}
             {showDest && <Selector zones={zones} text={"SELECT DESTINATION"} selZone={dest} setZone={setDest} setView={setShowDest} displayMsg={displayMsg} />}
         </div>

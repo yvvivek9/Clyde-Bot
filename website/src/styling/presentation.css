@@ -1,0 +1,12 @@
+.presentation{
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    text-align: center;
+}
+
+#pres-video {
+    position: relative;
+    display: inline;
+    height: 100%;
+}
