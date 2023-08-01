@@ -1,48 +1,53 @@
+import { useState, useEffect } from "react"
 import axios from "axios"
 
 import "../styling/selector.css"
 import cancel from '../photos/cancel.png'
 
 export default function Selector ({ zones, text, selZone, setZone, setView, displayMsg }){
+    const [list,  setList] = useState([])
+    const [choose, setChoose] = useState({zone: false})
+    const [select, setSelect] = useState(true)
 
-    const handleClick = (zone) => {
-        setZone(zone)
-    }
-
+    useEffect(() => {
+        setList(zones)
+        setChoose(selZone)
+    }, [])
+    
     const handleSubmit = async () => {
         if(text === "SELECT SOURCE"){
-            const response = await axios.post("/setNavSource", {
-                source: selZone.zone
-            })
+            const response = await axios.post("/setNavSource", choose)
             if(response.data.error)
                 displayMsg("Error setting the zone")
-            else
+            else{
                 setView(false)
+                setZone(choose)
+            }
         }
         else{
-            const response = await axios.post("/setNavDestination", {
-                destination: selZone.zone
-            })
+            const response = await axios.post("/setNavDestination", choose)
             if(response.data.error)
                 displayMsg("Error setting the zone")
-            else
+            else{
                 setView(false)
+                setZone(choose)
+            }
         }
     }
 
-    const forceClose = () => {
-        setZone({name: ` -- ${text} -- ` })
-        setView(false)
+    const handleSelect = (zone) => {
+        setSelect(false)
+        setChoose(zone)
     }
 
     return(
         <div className="selector-screen-bg">
             <div className="selector-screen">
                 <div className="selector-images">
-                    {zones.map((zone) => {
+                    {list.map((zone) => {
                         return <div key={zone.id}
-                                style={{ border: selZone === zone ? '4px solid blue' : '4px solid white',}}
-                                onClick={() => {handleClick(zone)}}
+                                style={{ border: choose.zone === zone.zone ? '4px solid blue' : '4px solid white',}}
+                                onClick={() => {handleSelect(zone)}}
                             >
                             <img src={zone.furl} alt={zone.zone} />
                             <div>{zone.name ? zone.name : zone.zone}</div>
@@ -51,9 +56,9 @@ export default function Selector ({ zones, text, selZone, setZone, setView, disp
                 </div>
                 <div className="selector-button-screen">
                     <div className="selector-button" onClick={() => {handleSubmit()}}>{text}</div>
-                    {!selZone.zone && <div className="selector-button-overlay"></div>}
+                    {select && <div className="selector-button-overlay"></div>}
                 </div>
-                <img className="selector-close" src={cancel} alt="cancel" onClick={() => {forceClose()}} />
+                <img className="selector-close" src={cancel} alt="cancel" onClick={() => {setView(false)}} />
             </div>
         </div>
     )

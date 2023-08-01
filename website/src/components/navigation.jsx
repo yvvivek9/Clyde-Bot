@@ -15,15 +15,6 @@ export default function Navigation({ displayMsg, setHome }) {
     const [nav, setNav] = useState("default")
     const [navSpeed, setNavSpeed] = useState({ speed: 0, show: false })
 
-    const getZones = async () => {
-        var res1 = await axios.post("/zonesList")
-        if (!res1.data.error) {
-            setZones(res1.data.zones)
-        }
-        else
-            displayMsg("Couldn't fetch total number of zones")
-    }
-
     const getNavSpeed = async () => {
         var res2 = await axios.post("/getNavSpeed")
         if (!res2.data.error) {
@@ -34,8 +25,18 @@ export default function Navigation({ displayMsg, setHome }) {
     }
 
     useEffect(() => {
-        getZones()
         getNavSpeed()
+        const interval = setInterval(async () => {
+            var res1 = await axios.post("/zonesList")
+            if (!res1.data.error) {
+                setZones(res1.data.zones)
+                if(res1.data.source)
+                    setSrc(res1.data.source)
+            }
+            else
+                displayMsg("Couldn't fetch total number of zones")
+            }, 1000);
+        return () => clearInterval(interval)
     }, [])
 
     const handleNavSpeed = (e) => {
@@ -127,7 +128,7 @@ export default function Navigation({ displayMsg, setHome }) {
                 <div className="nav-animation">
                     {nav === "default" && src.zone && dest.zone && <div className="nav-start-button" onClick={() => { startNavigation() }} >START</div>}
                     {nav === "active" && <div className="loader"><div className="loaderBar"></div></div>}
-                    {nav === "pause" && <div className="nav-animation">Navigation has been paused... Please wait</div>}
+                    {nav === "pause" && <div className="nav-animation">Navigation has been interrupted... Please wait for further signals</div>}
                     {nav === "resume" && <div className="nav-start-button" onClick={() => { startNavigation() }} >RESUME</div>}
                 </div>
             }

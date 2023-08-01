@@ -128,6 +128,7 @@ app.post("/zonesList", async (req, res)  => {
     try {
         await workbook.xlsx.readFile("variables.xlsx")
         const sheet = workbook.getWorksheet(2)
+        const sheet1 = workbook.getWorksheet(1)
         const zones = []
         const col1 = sheet.getColumn('A')
         col1.eachCell((cell, number) => {
@@ -140,11 +141,17 @@ app.post("/zonesList", async (req, res)  => {
             names.push(cell.value)
         })
         names.shift()
+        const source = sheet1.getCell('B17').value
         const list = []
+        var sourceJSON
+        var zoneJSON
         zones.map((value, index) => {
-            list.push({id: index+2, furl: `/images/front/${value}.jpg`, rurl: `/images/rear/${value}.jpg`,  zone: value, name: names[index]})
+            zoneJSON = {id: index+2, furl: `/images/front/${value}.jpg`, rurl: `/images/rear/${value}.jpg`,  zone: value, name: names[index]}
+            list.push(zoneJSON)
+            if(source === value)
+                sourceJSON = zoneJSON
         })
-        res.json({zones: list, error: false})
+        res.json({zones: list, source: sourceJSON, error: false})
     } catch (error) {
         res.json({ error: true })
         console.log(error)
@@ -157,8 +164,7 @@ app.post("/setZoneName", async (req, res) => {
         const sheet = workbook.getWorksheet(2)
         const list = req.body.list
         list.map((value) => {
-            if(value.name)
-                sheet.getCell(`B${value.id}`).value = value.name
+            sheet.getCell(`B${value.id}`).value = value.name
         })
         await workbook.xlsx.writeFile("variables.xlsx")
         res.json({error: false})
@@ -196,7 +202,7 @@ app.post("/setNavSource", async (req, res) => {
     try {
         await workbook.xlsx.readFile("variables.xlsx")
         const sheet = workbook.getWorksheet(1)
-        sheet.getCell('B17').value = req.body.source
+        sheet.getCell('B17').value = req.body.zone
         await workbook.xlsx.writeFile("variables.xlsx")
         res.json({ error: false })
     } catch (error) {
@@ -209,7 +215,7 @@ app.post("/setNavDestination", async (req, res) => {
     try {
         await workbook.xlsx.readFile("variables.xlsx")
         const sheet = workbook.getWorksheet(1)
-        sheet.getCell('B18').value = req.body.destination
+        sheet.getCell('B18').value = req.body.zone
         await workbook.xlsx.writeFile("variables.xlsx")
         res.json({ error: false })
     } catch (error) {
